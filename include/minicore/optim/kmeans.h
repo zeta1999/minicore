@@ -159,10 +159,12 @@ kmeanspp(const Oracle &oracle, RNG &rng, size_t np, size_t k, const WFT *weights
                 } else {
                     for(size_t j = 0; j < np; ++j) {
                         auto &v = sptr->operator[](j);
-                        if(auto newv = oracle(nextc, j);newv < v)
+                        if(auto newv = oracle(nextc, j);newv < v) {
                             v = newv, (*iptr)[j] = center_idx;
+                        }
+                        if(weights) nsum += v * weights[j];
+                        else        nsum += v;
                     }
-                    nsum = getcost(*sptr);
                 }
                 if(dsum < 0.) {
                     dsum = nsum, newc = nextc;

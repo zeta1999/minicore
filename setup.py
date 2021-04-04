@@ -40,7 +40,6 @@ def main():
         list(multiprocessing.pool.ThreadPool(N_cores).imap(_single_compile,objects))
         return objects
     
-    
     import distutils.ccompiler
     distutils.ccompiler.CCompiler.compile=parallelCCompile
     
